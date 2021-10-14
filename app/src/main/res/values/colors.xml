@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  Alpha color code  -->
+    <!--  90% - E6  -->
+    <!--  80% - CC  -->
+    <!--  70% - B3  -->
+    <!--  60% - 99  -->
+    <!--  50% - 80  -->
+    <!--  40% - 66  -->
+    <!--  30% - 4D  -->
+    <!--  20% - 33  -->
+    <!--  10% - 1A  -->
+    <!--  Alpha color code  -->
+
+    <!--  color palette  -->
+    <color name="primary_default">#111111</color>
+    <color name="primary_default_alpha90">#E6111111</color>
+    <color name="primary_default_alpha30">#4D111111</color>
+    <color name="primary_variants">#4A4A4A</color>
+    <color name="primary_variants_2">#5C5C5C</color>
+
+    <color name="background_primary">#212121</color>
+    <color name="background_secondary">#262626</color>
+
+    <color name="secondary_variants_dark">#144A75</color>
+    <color name="secondary_variants_dark_light">#1A144A75</color>
+    <color name="secondary_variants_light">#008DFF</color>
+
+    <color name="secondary_baby_blue">#F2F9FF</color>
+
+    <color name="secondary_variants_green">#3BA5B4</color>
+    <color name="secondary_variants_light_blue">#C0E3FF</color>
+
+    <color name="error_primary">#E82E4F</color>
+    <color name="error_primary_alpha50">#80E82E4F</color>
+
+    <color name="error_primary_light">#1AE82E4F</color>
+    <color name="error_secondary">#F97F3B</color>
+    <color name="error_third">#CC3232</color>
+
+    <color name="yellow_1">#FFDB1F</color>
+    <color name="yellow_1_alpha50">#80FFDB1F</color>
+
+    <color name="yellow_2">#DDC100</color>
+
+    <color name="green_one">#5FC778</color>
+
+    <color name="gray_1">#4A4A4A</color>
+    <color name="gray_1_alpha80">#CC4A4A4A</color>
+    <color name="gray_1_alpha10">#1A4A4A4A</color>
+    <color name="gray_2">#999999</color>
+    <color name="gray_3">#D9D9D9</color>
+    <color name="gray_4">#E4E4E4</color>
+    <color name="gray_5">#F4F4F4</color>
+
+    <color name="black">#000000</color>
+    <color name="black_alpha80">#CC000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_alpha90">#E6FFFFFF</color>
+    <color name="white_alpha50">#80FFFFFF</color>
+    <color name="white_alpha20">#33FFFFFF</color>
+    <color name="white_alpha10">#1AFFFFFF</color>
+    <color name="transparent">@android:color/transparent</color>
+    <!--  color palette  -->
+
+    <color name="background_gradient_light">#2F2F2F</color>
+    <color name="background_gradient_dark">#111010</color>
+
+    <color name="record_main">#D25147</color>
+
+    <color name="error_dark">#E1554A</color>
+
+    <color name="text_dialog_positive">@color/secondary_variants_light</color>
+    <color name="text_disabled">#C2C9D6</color>
+
+    <color name="stroke_color">#eae9ee</color>
+
+    <color name="input_background">#373737</color>
+    <color name="new_background">#e6ebf4</color>
+
+    <color name="bottom_sheet_background">#ffffff</color>
+
+    <color name="chip_background">#eaf0f8</color>
+    <color name="button_status_success_background">#3BB447</color>
+    <color name="button_status_invalid_background">#eeefee</color>
+
+    <color name="layer_download">#99FFFFFF</color>
+
+    <color name="video_gradient_dark_start">#662F2F2F</color>
+    <color name="video_gradient_dark_end">#66111010</color>
+    <color name="bg_progress_bar">#80111010</color>
+
+
+    <color name="ripple_background_white">#66ffffff</color>
+
+    <color name="dialog_background_black">#66111010</color>
+</resources>
