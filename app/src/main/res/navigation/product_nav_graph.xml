@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/product_nav_graph"
+    app:startDestination="@id/ProductListFragment">
+
+    <fragment
+        android:id="@+id/ProductListFragment"
+        android:name="wendy.grocery.android.usecase.ProductListFragment"
+        android:label="ProductListFragment"
+        tools:layout="@layout/fragment_product_list">
+        <action
+            android:id="@+id/action_ProductListFragment_to_ProductDetailFragment"
+            app:destination="@id/ProductDetailFragment" />
+        <action
+            android:id="@+id/action_ProductListFragment_to_ProductCartFragment"
+            app:destination="@id/ProductCartFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProductDetailFragment"
+        android:name="wendy.grocery.android.usecase.ProductDetailFragment"
+        android:label="ProductDetailFragment"
+        tools:layout="@layout/fragment_product_detail">
+        <argument
+            android:name="productId"
+            app:nullable="false"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_ProductDetailFragment_to_ProductCartFragment"
+            app:destination="@id/ProductCartFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProductCartFragment"
+        android:name="wendy.grocery.android.usecase.ProductCartFragment"
+        android:label="ProductCartFragment"
+        tools:layout="@layout/fragment_product_cart">
+        <action
+            android:id="@+id/action_ProductCartFragment_to_ProductDetailFragment"
+            app:destination="@id/ProductDetailFragment" />
+    </fragment>
+</navigation>
