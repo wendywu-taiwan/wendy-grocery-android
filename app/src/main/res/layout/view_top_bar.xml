@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingVertical="@dimen/spacing_tiny">
+
+    <ImageView
+        android:id="@+id/top_bar_close_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_tiny"
+        android:background="?android:selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/spacing_tiny"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="@+id/top_bar_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_bar_title"
+        app:tint="@color/primary_default" />
+
+    <TextView
+        android:id="@+id/top_bar_title"
+        style="@style/h1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/spacing_small"
+        android:layout_marginVertical="@dimen/spacing_xsmall"
+        android:gravity="center"
+        android:textColor="@color/primary_default"
+        app:layout_constraintEnd_toStartOf="@id/top_bar_right_action_icon"
+        app:layout_constraintStart_toEndOf="@id/top_bar_close_button"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/top_bar_bottom_barrier"
+        tools:text="Top bar Title"
+        />
+
+    <ImageView
+        android:id="@+id/top_bar_right_action_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/spacing_tiny"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="@dimen/spacing_tiny"
+        android:src="@drawable/ic_shopping_cart_black"
+        app:layout_constraintBottom_toBottomOf="@+id/top_bar_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/top_bar_title" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/top_bar_bottom_barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="top_bar_close_button, top_bar_title, top_bar_right_action_icon" />
+
+    <View
+        android:id="@+id/top_bar_bottom_divider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/divider_height"
+        android:background="@color/gray_4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_bar_bottom_barrier"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>
