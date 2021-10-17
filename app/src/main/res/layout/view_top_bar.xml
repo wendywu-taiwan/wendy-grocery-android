@@ -4,8 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingVertical="@dimen/spacing_tiny">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/top_bar_close_button"
@@ -24,7 +23,7 @@
 
     <TextView
         android:id="@+id/top_bar_title"
-        style="@style/h1"
+        style="@style/Fonts.HeadlineMedium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_small"
