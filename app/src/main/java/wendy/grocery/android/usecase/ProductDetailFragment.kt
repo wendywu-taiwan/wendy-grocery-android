@@ -15,8 +15,8 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_product_detail.*
 import wendy.grocery.android.R
 import wendy.grocery.android.domain.model.Product
-import wendy.grocery.android.utilities.extension.getLocaleStringResource
 import wendy.grocery.android.utilities.extension.observeNavigationEvent
+import wendy.grocery.android.utilities.extension.showToast
 import wendy.grocery.android.utilities.extension.toPrice
 import wendy.grocery.android.utilities.listener.AmountActionListener
 import wendy.grocery.android.utilities.livedata.EventObserver
@@ -36,7 +36,6 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
     private val viewModel : ProductViewModel by activityViewModels()
 
     private lateinit var topBarView: TopBarView
-    private lateinit var productName: TextView
     private lateinit var productImage: AppCompatImageView
     private lateinit var amountActionView: AmountActionView
     private lateinit var productPriceTitle: TextView
@@ -107,6 +106,18 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
                 addProductButton.background.setTint(ContextCompat.getColor(requireContext(), R.color.gray_3))
             }
         })
+        viewModel.isCartEmptyLiveData.observe(viewLifecycleOwner, EventObserver {
+            updateCartIcon(it)
+        })
+        viewModel.showToastLiveData.observe(viewLifecycleOwner, EventObserver {
+            val stringRes = it.first
+            val parameter = it.second
+
+            if(stringRes == R.string.product_detail_add_message)
+                showToast(getString(stringRes, parameter))
+            else
+                showToast(getString(stringRes))
+        })
     }
 
 
@@ -131,8 +142,10 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
         topBarView.setOnActionClickListener {
             viewModel.onClickDetailCart()
         }
-        productPriceTitle.text = getLocaleStringResource(R.string.product_detail_title)
-        addProductButton.text = getLocaleStringResource(R.string.product_detail_add_button)
+        updateCartIcon(viewModel.isCartEmpty())
+
+        productPriceTitle.text = getString(R.string.product_detail_title)
+        addProductButton.text = getString(R.string.product_detail_add_button)
 
         amountActionView.setAmountText("1")
         amountActionView.setAmountActionListener(object: AmountActionListener{
@@ -143,7 +156,8 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
         })
 
         addProductButton.setOnClickListener {
-            viewModel.onClickAddToCart(amountActionView.getProductId(), amountActionView.getAmountText())
+            val amountText = amountActionView.getAmountText()
+            viewModel.onClickAddToCart(amountActionView.getProductId(), amountText)
         }
     }
 
@@ -158,6 +172,14 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
             .into(productImage)
     }
 
+    /** Update right top cart icon color according it is empty or not */
+    private fun updateCartIcon(empty: Boolean){
+        if(empty){
+            topBarView.setActionIconTint(R.color.primary_default)
+        }else{
+            topBarView.setActionIconTint(R.color.secondary_variants_light)
+        }
+    }
 
     // ===========================================================
     // Inner Classes/Interfaces

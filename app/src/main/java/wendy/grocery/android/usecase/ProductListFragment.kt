@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_product_list.*
 import wendy.grocery.android.R
 import wendy.grocery.android.domain.model.ProductCategory
-import wendy.grocery.android.utilities.extension.getLocaleStringResource
 import wendy.grocery.android.utilities.extension.observeNavigationEvent
+import wendy.grocery.android.utilities.livedata.EventObserver
 import wendy.grocery.android.view.TopBarView
 import java.lang.ref.WeakReference
 
@@ -83,6 +83,9 @@ class ProductListFragment : androidx.fragment.app.Fragment() {
                 setupAdapter(it)
             }
         })
+        viewModel.isCartEmptyLiveData.observe(viewLifecycleOwner, EventObserver {
+            updateCartIcon(it)
+        })
     }
 
 
@@ -94,12 +97,13 @@ class ProductListFragment : androidx.fragment.app.Fragment() {
         topBarView = product_list_header
         dataListView = product_data_list
 
-        topBarView.setTitle(getLocaleStringResource(R.string.product_list_title))
+        topBarView.setTitle(getString(R.string.product_list_title))
         topBarView.showCloseButton(false)
         topBarView.setActionIcon(R.drawable.ic_shopping_cart_black)
         topBarView.setOnActionClickListener {
             viewModel.onClickListCart()
         }
+        updateCartIcon(viewModel.isCartEmpty())
     }
 
     /** Initialize the recycler view with configurations */
@@ -119,6 +123,14 @@ class ProductListFragment : androidx.fragment.app.Fragment() {
         controller?.setData(dataList)
     }
 
+    /** Update right top cart icon color according it is empty or not */
+    private fun updateCartIcon(empty: Boolean){
+        if(empty){
+            topBarView.setActionIconTint(R.color.primary_default)
+        }else{
+            topBarView.setActionIconTint(R.color.secondary_variants_light)
+        }
+    }
 
     // ===========================================================
     // Inner Classes/Interfaces

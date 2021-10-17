@@ -9,12 +9,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import wendy.grocery.android.R
 import wendy.grocery.android.cache.CacheCallback
 import wendy.grocery.android.domain.model.Product
 import wendy.grocery.android.domain.model.ProductCategory
 import wendy.grocery.android.repositories.ProductDataSource
 import wendy.grocery.android.utilities.livedata.Event
 import wendy.grocery.android.utilities.navigation.NavigationCommand
+import wendy.grocery.android.view.AmountActionView
 import java.util.concurrent.ConcurrentHashMap
 
 class ProductViewModel : ViewModel() {
@@ -47,6 +49,10 @@ class ProductViewModel : ViewModel() {
     private val cartDataUpdateMutableLiveData : MutableLiveData<List<ProductCategory>?> by lazy { MutableLiveData<List<ProductCategory>?>() }
     val cartDataUpdateLiveData: LiveData<List<ProductCategory>?> by lazy { cartDataUpdateMutableLiveData }
 
+    /** Notify the view that cart is empty or not empty */
+    private val isCartEmptyMutableLiveData : MutableLiveData<Event<Boolean>> by lazy { MutableLiveData<Event<Boolean>>() }
+    val isCartEmptyLiveData: LiveData<Event<Boolean>> by lazy { isCartEmptyMutableLiveData }
+
     /** Notify the view that the total price of cart products has updated */
     private val totalPriceUpdateMutableLiveData : MutableLiveData<Float?> by lazy { MutableLiveData<Float?>() }
     val totalPriceUpdateLiveData: LiveData<Float?> by lazy { totalPriceUpdateMutableLiveData }
@@ -54,6 +60,14 @@ class ProductViewModel : ViewModel() {
     /** Notify the view that current amount of product is valid to add to cart or not */
     private val canAddToCartMutableLiveData : MutableLiveData<Event<Boolean>> by lazy { MutableLiveData<Event<Boolean>>() }
     val canAddToCartLiveData: LiveData<Event<Boolean>> by lazy { canAddToCartMutableLiveData }
+
+    /**
+     * Notify to show a short toast message
+     * first item: String resource id
+     * second item: string parameter
+     * */
+    private val showToastMutableLiveData : MutableLiveData<Event<Pair<Int, Int?>>> by lazy { MutableLiveData<Event<Pair<Int, Int?>>>() }
+    val showToastLiveData: LiveData<Event<Pair<Int, Int?>>> by lazy { showToastMutableLiveData }
 
     /** map that keep the product id and product instance mapping */
     private val productsIdMap: ConcurrentHashMap<String, Product> = ConcurrentHashMap()
@@ -65,6 +79,11 @@ class ProductViewModel : ViewModel() {
     // ===========================================================
     // Public Methods
     // ===========================================================
+
+    /** Check if cart is empty or not */
+    fun isCartEmpty(): Boolean {
+        return isCartEmptyLiveData.value?.peekContent() ?: true
+    }
 
     /** When user clicking on list product item, navigate to product detail page */
     fun onClickListProduct(id: String){
@@ -106,7 +125,14 @@ class ProductViewModel : ViewModel() {
     fun onClickAddToCart(id: String?, amount: String?){
         if(id == null || amount == null) return
         val product = productsIdMap[id] ?: return
-        product.setAmount(product.getAmount() + amount.toInt())
+        val newAmount = product.getAmount() + amount.toInt()
+        if(newAmount > AmountActionView.MAX_AMOUNT) {
+            showToastMutableLiveData.value = Event(Pair(R.string.product_detail_add_over_message, AmountActionView.MAX_AMOUNT))
+            product.setAmount(AmountActionView.MAX_AMOUNT)
+        }else{
+            showToastMutableLiveData.value = Event(Pair(R.string.product_detail_add_message, amount.toInt()))
+            product.setAmount(newAmount)
+        }
         updateProductCartData()
     }
 
@@ -145,9 +171,9 @@ class ProductViewModel : ViewModel() {
         if(saveToCache)
             saveCartCachedData(cartCategories)
 
-        Log.d(TAG,"updateProductCartData done size:${cartCategories.size} totalPrice:$totalPrice")
         totalPriceUpdateMutableLiveData.value = totalPrice
         cartDataUpdateMutableLiveData.value = cartCategories
+        isCartEmptyMutableLiveData.value = Event(cartCategories.isNullOrEmpty())
     }
 
     /** Check if updated amount is valid */
@@ -165,6 +191,18 @@ class ProductViewModel : ViewModel() {
         val product = productsIdMap[id] ?: return
         product.setAmount(amount.toInt())
         updateProductCartData()
+    }
+
+    /** Clear the cart */
+    fun clearCartProducts(){
+        val categories = cartDataUpdateLiveData.value
+        if(categories.isNullOrEmpty()) return
+        categories.forEach { category ->
+            category.productList.forEach {
+                it.setAmount(0)
+            }
+        }
+        updateProductCartData(true)
     }
 
     // ===========================================================

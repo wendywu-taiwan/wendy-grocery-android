@@ -1,6 +1,7 @@
 package wendy.grocery.android.utilities.extension
 
 import android.content.res.Configuration
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.navigation.fragment.findNavController
@@ -49,15 +50,7 @@ fun Fragment.navigate(command: NavigationCommand) {
     }
 }
 
-/** Get string from locale file with given resource id */
-fun Fragment.getLocaleStringResource(
-    resourceId: Int,
-    requestedLocale: Locale = Locale.ENGLISH,
-): String {
-    val result: String
-    val config = Configuration(resources.configuration)
-    config.setLocale(requestedLocale)
-    result = this.requireContext().createConfigurationContext(config).getText(resourceId).toString()
-
-    return result
+/*** show toast with given string */
+fun Fragment.showToast(text: String, toastType:Int = Toast.LENGTH_SHORT){
+    Toast.makeText(requireContext(), text, toastType).show()
 }
