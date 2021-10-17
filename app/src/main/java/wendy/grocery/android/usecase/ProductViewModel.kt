@@ -51,6 +51,10 @@ class ProductViewModel : ViewModel() {
     private val totalPriceUpdateMutableLiveData : MutableLiveData<Float?> by lazy { MutableLiveData<Float?>() }
     val totalPriceUpdateLiveData: LiveData<Float?> by lazy { totalPriceUpdateMutableLiveData }
 
+    /** Notify the view that current amount of product is valid to add to cart or not */
+    private val canAddToCartMutableLiveData : MutableLiveData<Event<Boolean>> by lazy { MutableLiveData<Event<Boolean>>() }
+    val canAddToCartLiveData: LiveData<Event<Boolean>> by lazy { canAddToCartMutableLiveData }
+
     /** map that keep the product id and product instance mapping */
     private val productsIdMap: ConcurrentHashMap<String, Product> = ConcurrentHashMap()
 
@@ -146,8 +150,17 @@ class ProductViewModel : ViewModel() {
         cartDataUpdateMutableLiveData.value = cartCategories
     }
 
+    /** Check if updated amount is valid */
+    fun updateDetailProductAmount(amount: String?){
+        if(amount == null || amount.isBlank() || amount.toInt() <= 0){
+            canAddToCartMutableLiveData.value = Event(false)
+        } else {
+            canAddToCartMutableLiveData.value = Event(true)
+        }
+    }
+
     /** When the user modify the amount of the product in the cart, update data and UI */
-    fun setProductAmount(id: String?, amount: String?){
+    fun updateCartProductAmount(id: String?, amount: String?){
         if(id == null || amount == null) return
         val product = productsIdMap[id] ?: return
         product.setAmount(amount.toInt())

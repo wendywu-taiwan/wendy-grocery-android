@@ -48,3 +48,16 @@ fun Fragment.navigate(command: NavigationCommand) {
         }
     }
 }
+
+/** Get string from locale file with given resource id */
+fun Fragment.getLocaleStringResource(
+    resourceId: Int,
+    requestedLocale: Locale = Locale.ENGLISH,
+): String {
+    val result: String
+    val config = Configuration(resources.configuration)
+    config.setLocale(requestedLocale)
+    result = this.requireContext().createConfigurationContext(config).getText(resourceId).toString()
+
+    return result
+}

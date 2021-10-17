@@ -13,6 +13,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_product_cart.*
 import wendy.grocery.android.R
 import wendy.grocery.android.domain.model.ProductCategory
+import wendy.grocery.android.utilities.extension.getLocaleStringResource
 import wendy.grocery.android.utilities.extension.observeNavigationEvent
 import wendy.grocery.android.utilities.extension.toPrice
 import wendy.grocery.android.utilities.listener.AmountActionListener
@@ -108,9 +109,9 @@ class ProductCartFragment : androidx.fragment.app.Fragment() {
         topBarView.setOnCloseClickListener {
             requireActivity().onBackPressed()
         }
-        totalPriceTitle.text = "Total"
+        totalPriceTitle.text = getLocaleStringResource(R.string.product_cart_total)
         totalPriceText.text = "$300"
-        buyNowButton.text = "Buy now"
+        buyNowButton.text = getLocaleStringResource(R.string.product_cart_buy_button)
     }
 
     /** Initialize the recycler view with configurations */
@@ -121,7 +122,7 @@ class ProductCartFragment : androidx.fragment.app.Fragment() {
             onClickItemListener = viewModel::onClickCartProduct,
             object : AmountActionListener {
                 override fun onAmountTextEdit(id: String?, text: String?) {
-                    viewModel.setProductAmount(id, text)
+                    viewModel.updateCartProductAmount(id, text)
                 }
             }
 

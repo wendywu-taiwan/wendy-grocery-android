@@ -34,19 +34,19 @@
       {
         "id": 4,
         "name": "Beer",
-        "price": "$20.0",
+        "price": "20.0",
         "image": "https://produits.bienmanger.com/34491-0w0h0_Corona_Extra_Mexican_Blonde_Beer.jpg"
       },
       {
         "id": 5,
         "name": "Cola",
-        "price": "$15.0",
+        "price": "15.0",
         "image": "https://www.nurarolls.com/images/coca-cola-stash-can-12-oz-1_1.jpg"
       },
       {
         "id": 6,
         "name": "Orange Juice",
-        "price": "$13.0",
+        "price": "13.0",
         "image": "https://i5.walmartimages.com/asr/1a26c059-839d-42f0-9e04-18e82440b021.9b6300ef6b93f44bfd3342714909fb7f.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF"
       }
     ]
