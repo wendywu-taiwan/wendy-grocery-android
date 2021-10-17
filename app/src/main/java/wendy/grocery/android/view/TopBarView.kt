@@ -62,10 +62,23 @@ class TopBarView(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
      *
      * @param res the resource that you want to show in close icon
      */
-    fun setCloseButtonIcon(res: Int): TopBarView {
+    fun setCloseButtonIcon(res: Int?): TopBarView {
         customCloseButtonRes = res
         setupView()
         return this
+    }
+
+    /**
+     * to show or hide the close button
+     *
+     * @param show
+     */
+    fun showCloseButton(show: Boolean){
+        if(show){
+            closeButton.visibility = View.VISIBLE
+        } else {
+            closeButton.visibility = View.INVISIBLE
+        }
     }
 
     /**

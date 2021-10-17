@@ -9,7 +9,7 @@ object AssetsManager {
         val assets = WendyGroceryApplication.getInstance().assets
         val jsonString: String
         try {
-            jsonString = assets.open(assetType.name).bufferedReader().use { it.readText() }
+            jsonString = assets.open(assetType.filePath).bufferedReader().use { it.readText() }
         } catch (ioException: IOException) {
             ioException.printStackTrace()
             return null
@@ -18,7 +18,7 @@ object AssetsManager {
     }
 
     /** Define the json file type and file path mapping */
-    enum class AssetType(filePath: String) {
+    enum class AssetType(val filePath: String) {
         PRODUCT_LIST("products.json")
     }
 
