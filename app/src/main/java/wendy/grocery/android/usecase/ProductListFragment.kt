@@ -58,7 +58,7 @@ class ProductListFragment : androidx.fragment.app.Fragment() {
         observe()
         initAdapter()
 
-        observeNavigationEvent(viewModel.navigationCommandsLiveEvent, R.id.ProductListFragment)
+        observeNavigationEvent(viewModel.navigationCommandsLiveEvent)
     }
 
     // ===========================================================
@@ -114,6 +114,7 @@ class ProductListFragment : androidx.fragment.app.Fragment() {
         dataListView.layoutManager = LinearLayoutManager(requireContext())
     }
 
+    /** Update the list data */
     private fun setupAdapter(dataList: List<ProductCategory>){
         controller?.setData(dataList)
     }

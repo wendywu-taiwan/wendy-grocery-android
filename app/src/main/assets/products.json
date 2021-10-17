@@ -5,25 +5,25 @@
       {
         "id": 0,
         "name": "Potato Chips",
-        "price": "$10.0",
+        "price": "10.0",
         "image": "https://m.media-amazon.com/images/I/81vJyb43URL._SL1500_.jpg"
       },
       {
         "id": 1,
         "name": "Chocolate",
-        "price": "$15.0",
+        "price": "15.0",
         "image": "https://cpimg.tistatic.com/06926481/b/4/Ferrero-Rocher-Luxury-Chocolate.jpg?tr=n-w410"
       },
       {
         "id": 2,
         "name": "Italian Sauce",
-        "price": "$50.0",
+        "price": "50.0",
         "image": "https://www.greenmillfoods.com/wp-content/uploads/2018/02/Italian-Bold-Pasta-Sauce-300x289-12-12-18.jpg"
       },
       {
         "id": 3,
         "name": "Corn Chips",
-        "price": "$15.0",
+        "price": "15.0",
         "image": "https://m.media-amazon.com/images/I/91gHdwzbjYL._SY879_.jpg"
       }
     ]

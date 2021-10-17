@@ -170,7 +170,7 @@ class TopBarView(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
             actionIconButton.visibility = View.VISIBLE
             actionIconButton.setImageResource(res)
         } ?: kotlin.run {
-            actionIconButton.visibility = View.GONE
+            actionIconButton.visibility = View.INVISIBLE
         }
     }
 

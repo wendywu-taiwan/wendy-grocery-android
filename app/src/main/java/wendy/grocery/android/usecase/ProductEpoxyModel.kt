@@ -86,7 +86,7 @@ abstract class ProductEpoxyModel: EpoxyModelWithHolder<ProductEpoxyModel.ViewHol
     }
 
     private fun setAmountActionView(amountActionView: AmountActionView){
-        amountActionView.setId(productId)
+        amountActionView.setProductId(productId)
         amountActionView.setAmountText(amount)
         amountActionView.setAmountActionListener(listener = amountActionListener)
 

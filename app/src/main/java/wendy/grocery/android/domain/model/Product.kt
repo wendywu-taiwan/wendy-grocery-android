@@ -18,7 +18,7 @@ data class Product(
         private var amount: Int = 0
 
         override fun toString(): String {
-                val string = "id:$id name:$name price:$price image:$image"
+                val string = "id:$id name:$name price:$price image:$image amount:$amount"
                 Log.d("Product", "$string")
                 return string
         }

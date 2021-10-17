@@ -3,6 +3,7 @@ package wendy.grocery.android.usecase
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.epoxy.TypedEpoxyController
 import wendy.grocery.android.domain.model.ProductCategory
+import wendy.grocery.android.utilities.extension.toPrice
 import wendy.grocery.android.utilities.listener.AmountActionListener
 import wendy.grocery.android.view.decoration.ProductListDecoration
 import java.lang.ref.WeakReference
@@ -31,6 +32,7 @@ class ProductListController(private val showCategory: Boolean = true,
                 showTitleTopSpace = true
 
             category.productList.forEach { data ->
+                val price = "\$${data.price}"
                 product {
                     id(data.id)
                     productId(data.id)
@@ -39,7 +41,7 @@ class ProductListController(private val showCategory: Boolean = true,
                     showTitle(showTitle)
                     image(data.image)
                     name(data.name)
-                    price(data.price)
+                    price(data.price.toPrice())
                     amount(data.getAmount().toString())
                     showAmountActionView(showAmountAction)
                     itemClickListener(onClickItemListener)
