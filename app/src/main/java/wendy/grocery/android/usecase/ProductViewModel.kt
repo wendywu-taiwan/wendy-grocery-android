@@ -13,6 +13,7 @@ import wendy.grocery.android.cache.CacheCallback
 import wendy.grocery.android.domain.model.Product
 import wendy.grocery.android.domain.model.ProductCategory
 import wendy.grocery.android.repositories.ProductDataSource
+import wendy.grocery.android.utilities.livedata.Event
 import wendy.grocery.android.utilities.navigation.NavigationCommand
 import java.util.concurrent.ConcurrentHashMap
 
@@ -31,8 +32,8 @@ class ProductViewModel : ViewModel() {
     // ===========================================================
 
     /** Navigation observables */
-    private val navigationCommandsSLE : MutableLiveData<NavigationCommand> by lazy { MutableLiveData<NavigationCommand>() }
-    val navigationCommandsLiveEvent: LiveData<NavigationCommand> by lazy { navigationCommandsSLE }
+    private val navigationCommandsSLE : MutableLiveData<Event<NavigationCommand>> by lazy { MutableLiveData<Event<NavigationCommand>>() }
+    val navigationCommandsLiveEvent: LiveData<Event<NavigationCommand>> by lazy { navigationCommandsSLE }
 
     /** Notify the view that detail data has updated */
     private val detailDataUpdateMutableLiveData : MutableLiveData<Product?> by lazy { MutableLiveData<Product?>() }
@@ -63,34 +64,38 @@ class ProductViewModel : ViewModel() {
 
     /** When user clicking on list product item, navigate to product detail page */
     fun onClickListProduct(id: String){
-        navigationCommandsSLE.value =
+        navigationCommandsSLE.value = Event(
             NavigationCommand.To(
                 ProductListFragmentDirections.actionProductListFragmentToProductDetailFragment(id)
             )
+        )
     }
 
     /** When user clicking on cart icon, navigate to product cart page */
     fun onClickListCart(){
-        navigationCommandsSLE.value =
+        navigationCommandsSLE.value = Event(
             NavigationCommand.To(
                 ProductListFragmentDirections.actionProductListFragmentToProductCartFragment()
             )
+        )
     }
 
     /** When user clicking on cart icon, navigate to product cart page */
     fun onClickDetailCart(){
-        navigationCommandsSLE.value =
+        navigationCommandsSLE.value = Event(
             NavigationCommand.To(
                 ProductDetailFragmentDirections.actionProductDetailFragmentToProductCartFragment()
             )
+        )
     }
 
     /** When user clicking on cart product item, navigate to product detail page */
     fun onClickCartProduct(id: String){
-        navigationCommandsSLE.value =
+        navigationCommandsSLE.value = Event(
             NavigationCommand.To(
                 ProductCartFragmentDirections.actionProductCartFragmentToProductDetailFragment(id)
             )
+        )
     }
 
     /** Update product item's amount when the user click on add to cart button in detail page */

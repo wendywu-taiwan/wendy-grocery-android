@@ -19,18 +19,21 @@ data class Product(
 
         override fun toString(): String {
                 val string = "id:$id name:$name price:$price image:$image amount:$amount"
-                Log.d("Product", "$string")
+                Log.d("Product", string)
                 return string
         }
 
+        /** Check if product is in the cart */
         fun isCartProduct(): Boolean {
                 return amount > 0
         }
 
+        /** Set the amount of product */
         fun setAmount(amount: Int) {
-                this.amount = amount.toInt()
+                this.amount = amount
         }
 
+        /** Get the amount of product */
         fun getAmount(): Int {
                 return amount
         }

@@ -9,7 +9,6 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_product_detail.*
@@ -70,7 +69,7 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
         setupView()
         observe()
         viewModel.getDetailData(args.productId)
-        observeNavigationEvent(viewModel.navigationCommandsLiveEvent, R.id.ProductDetailFragment)
+        observeNavigationEvent(viewModel.navigationCommandsLiveEvent)
     }
 
     // ===========================================================
@@ -115,15 +114,24 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
         topBarView.setActionIcon(R.drawable.ic_shopping_cart_black)
         topBarView.showDivider(false)
         topBarView.setOnCloseClickListener{
-            viewModel.onClickBack()
+            requireActivity().onBackPressed()
+        }
+        topBarView.setOnActionClickListener {
+            viewModel.onClickDetailCart()
         }
         productPriceTitle.text = "Price"
         addProductButton.text = "Add to cart"
 
         amountActionView.setAmountText("1")
+        amountActionView.setAmountActionListener(null)
+
+        addProductButton.setOnClickListener {
+            viewModel.onClickAddToCart(amountActionView.getProductId(), amountActionView.getAmountText())
+        }
     }
 
     private fun updateView(product: Product){
+        amountActionView.setProductId(product.id)
         topBarView.setTitle(product.name)
         productPrice.text = product.price
 

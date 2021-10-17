@@ -3,7 +3,6 @@ package wendy.grocery.android.usecase
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
-import androidx.activity.viewModels
 import wendy.grocery.android.R
 
 class MainActivity : AppCompatActivity() {
@@ -11,13 +10,6 @@ class MainActivity : AppCompatActivity() {
     // ===========================================================
     // Fields
     // ===========================================================
-
-    private val viewModel : ProductViewModel by viewModels()
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        viewModel.onClickBack()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
