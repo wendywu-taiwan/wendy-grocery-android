@@ -58,7 +58,7 @@ class ProductListFragment : androidx.fragment.app.Fragment() {
         observe()
         initAdapter()
 
-        observeNavigationEvent(viewModel.navigationCommandsLiveEvent, R.id.product_nav_graph)
+        observeNavigationEvent(viewModel.navigationCommandsLiveEvent, R.id.ProductListFragment)
     }
 
     // ===========================================================

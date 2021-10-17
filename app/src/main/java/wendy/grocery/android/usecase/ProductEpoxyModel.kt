@@ -78,9 +78,9 @@ abstract class ProductEpoxyModel: EpoxyModelWithHolder<ProductEpoxyModel.ViewHol
 
         holder.productPrice.text = price
 
-//        holder.contentLayout.setOnClickListener {
-//            itemClickListener?.invoke(productId)
-//        }
+        holder.contentLayout.setOnClickListener {
+            itemClickListener?.invoke(productId)
+        }
 
         setAmountActionView(holder.amountActionView)
     }
@@ -113,7 +113,7 @@ abstract class ProductEpoxyModel: EpoxyModelWithHolder<ProductEpoxyModel.ViewHol
             view = itemView
             titleTopSpace = itemView.findViewById(R.id.title_top_space)
             titleLayout = itemView.findViewById(R.id.product_title_layout)
-            contentLayout = itemView.findViewById(R.id.product_content_text_layout)
+            contentLayout = itemView.findViewById(R.id.product_content_layout)
             titleText = itemView.findViewById(R.id.product_title_text)
             productImage = itemView.findViewById(R.id.product_content_image)
             productName = itemView.findViewById(R.id.product_content_name)

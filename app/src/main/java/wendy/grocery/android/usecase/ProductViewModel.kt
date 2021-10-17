@@ -36,6 +36,10 @@ class ProductViewModel : ViewModel() {
     private val navigationCommandsSLE : MutableLiveData<NavigationCommand> by lazy { MutableLiveData<NavigationCommand>() }
     val navigationCommandsLiveEvent: LiveData<NavigationCommand> by lazy { navigationCommandsSLE }
 
+    /** Notify the view that detail data has updated */
+    private val detailDataUpdateMutableLiveData : MutableLiveData<Product?> by lazy { MutableLiveData<Product?>() }
+    val detailDataUpdateLiveData: LiveData<Product?> by lazy { detailDataUpdateMutableLiveData }
+
     /** Notify the view that list data has updated */
     private val listDataUpdateMutableLiveData : MutableLiveData<List<ProductCategory>?> by lazy { MutableLiveData<List<ProductCategory>?>() }
     val listDataUpdateLiveData: LiveData<List<ProductCategory>?> by lazy { listDataUpdateMutableLiveData }
@@ -58,8 +62,16 @@ class ProductViewModel : ViewModel() {
     // Public Methods
     // ===========================================================
 
+    /**
+     * Receive on click event on back button
+     */
+    fun onClickBack() {
+        navigationCommandsSLE.value = NavigationCommand.Back
+    }
+
     /** When user clicking on list product item, navigate to product detail page */
     fun onClickListProduct(id: String){
+        Log.d(TAG,"onClickListProduct:$id")
         navigationCommandsSLE.value =
             NavigationCommand.To(
                 ProductListFragmentDirections.actionProductListFragmentToProductDetailFragment(id)
@@ -82,8 +94,13 @@ class ProductViewModel : ViewModel() {
             )
     }
 
+    fun getDetailData(id: String){
+        val product = productsIdMap[id] ?: return
+        detailDataUpdateMutableLiveData.value = product
+    }
 
-    fun updateProductCartData() = viewModelScope.launch {
+
+    fun updateProductCartData() = viewModelScope.launch{
         val cartCategories = ArrayList<ProductCategory>()
         withContext(Dispatchers.Default) {
             originalData?.forEach lit@{ category ->

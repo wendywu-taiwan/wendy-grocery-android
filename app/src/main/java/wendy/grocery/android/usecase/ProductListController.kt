@@ -40,7 +40,7 @@ class ProductListController(private val showCategory: Boolean = true,
                     image(data.image)
                     name(data.name)
                     price(data.price)
-                    amount(data.getAmount())
+                    amount(data.getAmount().toString())
                     showAmountActionView(showAmountAction)
                     itemClickListener(onClickItemListener)
                     amountActionListener(amountActionListener)

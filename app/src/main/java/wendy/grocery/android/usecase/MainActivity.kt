@@ -1,14 +1,23 @@
 package wendy.grocery.android.usecase
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuItem
+import androidx.activity.viewModels
 import wendy.grocery.android.R
 
 class MainActivity : AppCompatActivity() {
+
+    // ===========================================================
+    // Fields
+    // ===========================================================
+
+    private val viewModel : ProductViewModel by viewModels()
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        viewModel.onClickBack()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,13 +30,4 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }

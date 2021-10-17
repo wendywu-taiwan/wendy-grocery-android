@@ -21,6 +21,7 @@ class TopBarView(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
     private val title: TextView
     private val actionIconButton: ImageView
     private val closeButton: ImageView
+    private val divider: View
 
     private var customCloseButtonRes: Int? = null // res for close icon
     private var customActionButtonRes: Int? = null // res for action icon
@@ -35,6 +36,7 @@ class TopBarView(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
         title = findViewById(R.id.top_bar_title)
         closeButton = findViewById(R.id.top_bar_close_button)
         actionIconButton = findViewById(R.id.top_bar_right_action_icon)
+        divider = findViewById(R.id.top_bar_bottom_divider)
         setupView()
     }
 
@@ -140,6 +142,19 @@ class TopBarView(context: Context, attrs: AttributeSet?) : ConstraintLayout(cont
     fun setActionIconTint(color:Int):TopBarView{
         actionIconButton.tint(color)
         return this
+    }
+
+    /**
+     * to show or hide the bottom divider
+     *
+     * @param show
+     */
+    fun showDivider(show: Boolean){
+        if(show){
+            divider.visibility = View.VISIBLE
+        } else {
+            divider.visibility = View.INVISIBLE
+        }
     }
 
     // ===========================================================
