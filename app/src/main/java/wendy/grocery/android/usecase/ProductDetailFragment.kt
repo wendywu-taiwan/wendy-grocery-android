@@ -144,7 +144,7 @@ class ProductDetailFragment : androidx.fragment.app.Fragment() {
         }
         updateCartIcon(viewModel.isCartEmpty())
 
-        productPriceTitle.text = getString(R.string.product_detail_title)
+        productPriceTitle.text = getString(R.string.product_detail_price_title)
         addProductButton.text = getString(R.string.product_detail_add_button)
 
         amountActionView.setAmountText("1")

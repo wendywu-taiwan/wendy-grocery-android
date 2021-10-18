@@ -14,6 +14,7 @@ import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.fragment_product_cart.*
 import wendy.grocery.android.R
 import wendy.grocery.android.domain.model.ProductCategory
+import wendy.grocery.android.utilities.extension.hideKeyboard
 import wendy.grocery.android.utilities.extension.observeNavigationEvent
 import wendy.grocery.android.utilities.extension.showToast
 import wendy.grocery.android.utilities.extension.toPrice
@@ -86,7 +87,6 @@ class ProductCartFragment : androidx.fragment.app.Fragment() {
         viewModel.cartDataUpdateLiveData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 setupAdapter(it)
-                setBuyButtonEnable(!it.isNullOrEmpty())
             }
         })
         viewModel.totalPriceUpdateLiveData.observe(viewLifecycleOwner, Observer {
@@ -154,6 +154,7 @@ class ProductCartFragment : androidx.fragment.app.Fragment() {
             buyNowButton.background.setTint(ContextCompat.getColor(requireContext(), R.color.secondary_variants_light))
         }else{
             buyNowButton.background.setTint(ContextCompat.getColor(requireContext(), R.color.gray_3))
+            this.view?.hideKeyboard()
         }
     }
 
